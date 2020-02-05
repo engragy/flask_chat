@@ -1,6 +1,6 @@
 # Flask_chat
 [![LOGO|Flask](https://hackr.io/tutorials/learn-flask/logo/logo-flask?ver=1527561020)](https://hackr.io/tutorials/learn-flask/logo/logo-flask?ver=1527561020)
-*** Powered By ***
+## *** Powered By ***
 ##### this is my frist attempt in the world of web-dev, it is a Flask WebApp for chatting.
 #
 ### consists of a couple of pages!
