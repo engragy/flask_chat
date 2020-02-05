@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+      <!-- import fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet">
+      
+      <!-- custom css -->
+      {% block css %}
+      {% endblock %}
+            
+      <!-- title (customizable) -->
+      {% if title %}
+        <title>Flask Chat APP - {{ title }}</title>
+      {% else %}
+        <title> Flask Chat APP </title>
+      {% endif %}
+    </head>
+    <body>
+      <header>
+        <!-- Site LOGO -->
+        <div id="site_logo" class="navbar-nav mr-auto">
+          <a class="navbar-brand" href="{{ url_for('index') }}"><h3> Flask Chat APP </h3></a>
+        </div>
+        <!-- Navbar content -->
+        <nav class="navbar">
+            <!-- Navbar Left Side -->
+            
+            <!-- Navbar Right Side -->
+            <div id="display_name" class="navbar-items">
+              {% if current_user.is_authenticated %}
+                <div class="user-display-area">
+                  <img class="user_image" src="{{ u_img }}">
+                  <h3 id="display_name_is" class="nav-item nav-link">{{ current_user.username }}</h3>
+                </div>
+                <label class="nav-toggle-lable" for="nav-toggle">
+                  <span></span>
+                </label>
+                <!-- drop down menu list -->
+                <input id="nav-toggle" type="checkbox">
+                <ul class="user-nav-toggle">
+                  <li>
+                    <form name="imgform" enctype="multipart/form-data" method="POST" class="form-control-xs">
+                      <!-- CSRF security token -->
+                      {{ imgform.hidden_tag() }}
+                      {{ imgform.image.label }}
+                      {{ imgform.image(class="field-fileupload") }}
+                      {% if imgform.image.errors %}
+                        {% for error in imgform.image.errors %}
+                          <span class="error">{{ error }}</span><br>
+                        {%endfor%}
+                      {% endif %}
+                      {{ imgform.submit }}
+                    </form>
+                  </li>
+                  <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                </ul>
+              {% else %}
+                <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+              {% endif %}
+            </div>
+        </nav>
+      </header>
+      <main role="main" class="main-view">
+        <!-- show flash messages here -->
+        <div class="col-md-12">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+        <!-- show contents here -->
+          {% block body %}
+          {% endblock %}
+        </div>
+      </main>
+      <footer>
+        {% block messege %}
+        {% endblock %}
+      </footer>
+      <!-- JavaScript -->
+      {% block js %}
+      {% endblock %}
+    </body>
+</html>

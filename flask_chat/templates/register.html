@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6-center">
+        <form action="" method="POST" class="form-control-lg">
+            <!-- CSRF security token -->
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend>Sign UP</legend>
+                <div>
+                    <!-- display input field label -->
+                    {{ form.username.label(class="field-label") }}
+                    
+                    <!-- display input field or invalid input errors -->
+                    {% if form.username.errors %}
+                    {{ form.username(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="field-text", placeholder="myname") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.email.label(class="field-label") }}
+                    {% if form.email.errors %}
+                    {{ form.email(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="field-text", placeholder="name@example.com") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.password.label(class="field-label") }}
+                    {% if form.password.errors %}
+                    {{ form.password(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    {{ form.password(class="field-text") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.confirmed_password.label(class="field-label") }}
+                    {% if form.confirmed_password.errors %}
+                    {{ form.confirmed_password(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.confirmed_password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.confirmed_password(class="field-text") }}
+                    {% endif %}
+                </div>
+
+            </fieldset>
+            <div>
+                {{ form.submit(class="btn-blue-lg") }}
+            </div>
+        </form>
+        <div class="wrong-form">
+            Login if you have an Account ! <a href="{{ url_for('login') }}">Sign In</a>
+        </div>    
+    </div>
+{% endblock %}

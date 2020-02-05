@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+{% block body %}
+  <!-- show messages here -->
+  <div class="col-md-8">
+    <div id="msgs_list" class="msgs-container">
+      
+    </div>
+  </div>
+
+  <!-- show channels list here -->
+  <div class="col-md-4">
+    <h5 class="head-font-5">Create new channel for your Interrests.</h5>
+    <form action="" method="POST" id="cr_ch" class="form-control-sm">
+      <!-- CSRF security token -->
+      {{ chform.hidden_tag() }}
+      <div>
+        {% if chform.chname.errors %}
+        {{ chform.chname(class="field-text is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in chform.chname.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+        {% else %}
+        {{ chform.chname(class="field-text", placeholder="New Channel Name") }}
+        {% endif %}
+      </div>
+      <div>
+        {{ chform.submit(class="btn-gray-sm") }}
+      </div>
+    </form>      
+    <br>
+    <div class="side-channels">
+      <h3 class="head-font-3">Channels</h3>
+      <ul id="ch_list" class="list-group">
+      {% if ch_list %}
+        {% for i in ch_list %}
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a id="ch_item" href="{{ url_for('channel', ch_name=i) }}" data-ch="{{ i }}" class="list-group-item list-group-item-action">{{ i }}</a>
+              <span class="badge">{{ i.chat_count() }}</span>
+          </li>
+        {% endfor %}
+      {% endif %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
+
+{% block messege %}
+  <!-- show input text here -->
+  <div class="col-md-8-fixed-bottom">
+    <form name="msgform" method="POST" id="send" class="form-control-md">
+      {{ msgform.hidden_tag() }}
+      {{ msgform.send_txt(id="send_txt", class="form-control") }}
+      {{ msgform.submit(id="send_submit", class="btn btn-primary btn-lg") }}
+    </form>
+  </div>
+{% endblock %}
+{% block js %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

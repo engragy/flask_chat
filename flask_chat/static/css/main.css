@@ -1,0 +1,598 @@
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+/* ///////////////////////////////// general configurations ///////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+:root {
+    --main-bg-color: #F5F5F5;
+    --color-1: #333333;
+    --color-2: rgb(100, 148, 237);
+    --color-3: #D3223C;
+    --color-err: indianred;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    background-color: var(--main-bg-color);
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+}
+header {
+    background: var(--color-1);
+    position: fixed;
+    display: grid;
+    width: 100%;
+    text-align: center;
+    z-index: 999;
+    grid-template-columns: repeat(5, 1fr);
+    font-weight: 900;
+}
+main.main-view{
+    width: 100%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: minmax(0, max-content);
+    gap: 0.3em;
+    align-items: start;
+    justify-content: center;
+    position: absolute;
+    top: 80px;
+    left: 0;
+}
+footer{
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+/* //////////// */
+/* /// logo /// */
+/* //////////// */
+#site_logo {
+    grid-column: 1 / 3;
+    justify-self: center;
+    background-color: #171717;
+}
+.navbar-brand {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--color-2);
+}
+.navbar-brand:hover{
+    color: var(--main-bg-color);
+}
+.navbar-brand h3{
+    margin: 0.7em;
+}
+
+/* //////////////////// */
+/* /// navbar items /// */
+/* //////////////////// */
+
+/* navbar box itself */
+.navbar {
+    grid-column: 4 / 6;
+    width: auto;
+    justify-self: right;
+    align-self: center;
+    font-size: 1rem;
+    margin-right: 3em;
+}
+
+/* image, username box */
+.user-display-area {
+    float: left;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+/* user's pic */
+.user-display-area img {
+    border-radius: 50%;
+    margin: 0.5em;
+}
+
+/* username box */
+.user-display-area h3 {
+    color: var(--color-3);
+    float: right;
+}
+
+/* user's drop list - items - links */
+.navbar-items a {
+    text-transform: capitalize;
+    color: var(--color-3);
+    text-decoration: none;
+    margin: 1em;
+    display: inline-block;
+}
+.navbar-items a:hover {
+    color: var(--main-bg-color);
+} 
+
+/* /////////////////////////////// */
+/* /// navbar user's drop list /// */
+/* /////////////////////////////// */
+
+/* checkbox (toggler) */
+.user-display-area ~ #nav-toggle {
+    display: none;
+}
+
+/* toggler lable */
+.user-display-area ~ .nav-toggle-lable {
+    color: var(--main-bg-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 1em;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* toggle lable (making sandwitch) step01 */
+.nav-toggle-lable span,
+.nav-toggle-lable span::before,
+.nav-toggle-lable span::after {
+    display: block;
+    background: var(--main-bg-color);
+    width: 1.5rem;
+    height: 2px;
+    border-radius: 5px;
+    position: relative;
+}
+/* toggle lable (making sandwitch) step02 */
+.nav-toggle-lable span::before,
+.nav-toggle-lable span::after {
+    content: '';
+    position: absolute;
+}
+/* toggle lable (making sandwitch) step03 */
+.nav-toggle-lable span::before {
+    bottom: 7px;
+}
+/* toggle lable (making sandwitch) step04 */
+.nav-toggle-lable span::after {
+    top: 7px;
+}
+
+/* user's drop list */
+.user-display-area ~ ul {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--color-1);
+    list-style: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border-radius: 0 0 1em 1em ;
+    /* display: none; */
+    transform: scale(1, 0);
+    transform-origin: top;
+    transition: transform 500ms ease-in-out;
+}
+
+/* toggler is on - style drop list */
+#nav-toggle:checked ~ ul {
+    /* display: block; */
+    transform: scale(1, 1);
+}
+
+/* user's drop list - items */
+.user-display-area ~ ul li {
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+}
+
+/* toggler is on - style drop list - items - links */
+#nav-toggle:checked ~ ul li{
+    opacity: 1;
+    transition: opacity 350ms ease-in 250ms;
+}
+
+.user-display-area ~ ul li .form-control-xs{
+    padding: 1em;
+    width: min-content;
+    height: min-content;
+    justify-items: center;
+    align-items: center;
+    color: var(--main-bg-color);
+}
+.user-display-area ~ ul li .form-control-xs label{
+    text-transform: capitalize;
+    color: var(--color-3);
+}
+.user-display-area ~ ul li .form-control-xs input[type="file"] {
+    padding: 10px 0;
+}
+.user-display-area ~ ul li .form-control-xs input[type="submit"] {
+    width: 100%;
+    color: var(--main-bg-color);
+    background: var(--color-2);
+    font-weight: 700;
+    padding: 10px 0;
+    border: none;
+    border-radius: 0.5em;
+}
+.user-display-area ~ ul li .form-control-xs input[type="submit"]:hover{
+    background: var(--main-bg-color);
+    color: var(--color-1);
+}
+
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+/* //////////////////////////////////// main page view ////////////////////////////////////// */
+/* ////////////////////////////////////////////////////////////////////////////////////////// */
+
+/* alert messages */
+.col-md-12,
+.alert{
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: max-content;
+    padding: 15px;
+    font-weight: 700;
+    font-size: 19px;
+    font-style: oblique;
+    text-align: center;
+    border-radius: 15px;
+}
+.alert-danger{
+    background-color: indianred;
+}
+.alert-success,
+.alert-info {
+    background-color: #0096ff80;
+}
+
+/* display area - primary */
+.col-md-8{
+    grid-column: 1 / 9;
+    margin-left: 1.5em;
+    width: 100%;
+    height: 80%;
+    justify-self: center;
+
+}
+
+/* display area - side */
+.col-md-4{
+    grid-column: 9 / -1;
+    margin-right: 1.5em;
+    align-self: start;
+    justify-self: start;
+    padding-left: 1.5em;
+    padding-bottom: 80px;
+}
+
+/* box in the middle of columns(login/reg forms) */
+.col-md-6-center {
+    grid-column: 4 / 9;
+    justify-self: center;
+    width: max-content;
+}
+
+/* box at left bottom of page */
+.col-md-8-fixed-bottom {
+    justify-content: center;
+    width: 100%;
+    bottom: 100%;
+    left: 0;
+}
+
+/* large form (login / register)*/
+.form-control-lg{
+    border: 3px solid var(--color-2);
+    padding: 1.5em;
+    border-radius: 1.5em;
+    font-weight: 500;
+}
+
+/* mediem form (send messege) */
+.form-control-md{
+    background-color: var(--color-1);
+    font-weight: 500;
+}
+
+/* small from (create channel) */
+.form-control-sm {
+    border: 3px solid var(--color-2);
+    padding: 1em;
+    border-radius: 1em;
+    font-weight: 500;
+}
+
+/* //////////////////////////////////////////// */
+/* /////// login & register pages forms /////// */
+/* //////////////////////////////////////////// */
+
+fieldset.form-group{
+    border: 3px solid var(--color-1);
+    padding: 1.5em;
+}
+
+/* form legend */
+legend{
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--color-2);
+}
+
+/* formfield - input - label */
+label.field-label{
+    margin: 0.5em;
+}
+
+/* formfield - input */
+.field-text{
+    width: 100%;
+    margin-bottom: 1em;
+    height: 30px;
+}
+
+/* formfield - input - error */
+.is-invalid{
+    margin-bottom: 1em;
+    border: 2px solid var(--color-err);
+    border-radius: 5px;
+    height: 32px;
+}
+
+/* formfield - input - error discription */
+.invalid-feedback{
+    background-color: var(--color-err);
+    border-radius: 5px;
+    margin-bottom: 1em;
+    padding: 5px;
+    width: max-content;
+}
+
+/* formfield - submit */
+input.btn-blue-lg {
+    margin-top: 1em;
+    padding: 0.5em 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-2);
+    border: none;
+    border-radius: 1.5em;
+    font-weight: 700;
+}
+input.btn-blue-lg:hover {
+    color: var(--main-bg-color);
+}
+small {
+    display: block;
+    padding-top: 1em;
+}
+.wrong-form{
+    grid-column: 4 / 10;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5em;
+    margin-bottom: 1.5em;
+}
+.wrong-form a {
+    margin-left: 1em;
+}
+
+/* //////////////////////////////////////////// */
+/* //////////////// index page //////////////// */
+/* //////////////////////////////////////////// */
+
+.head-font-3{
+    text-align: center;
+    font-weight: 700;
+    font-size: 21px;
+    font-style: italic;
+    color: var(--color-2);
+}
+.head-font-5 {
+    text-align: start;
+    font-size: 17px;
+    font-style: italic;
+    color: black;
+    padding: 0 15px;
+}
+/* insight paragraphs */
+.insight-p::before,
+.insight-p::after {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 50px;
+    color: var(--color-2)
+}
+.insight-p::before{
+    content: open-quote;
+    position: absolute;
+    top: 20%;
+    left: 0;
+}
+.insight-p::after {
+    content: close-quote;
+    position: absolute;
+    bottom: 10%;
+}
+.insight-p{
+    position: relative;
+    color: var(--color-1);
+    font-family: 'Kaushan Script', cursive;
+    font-variant: small-caps;
+    font-weight: 700;
+    font-style: oblique;
+    font-size: 21px;
+    padding: 1.5em;
+    line-height: 1.5em;
+}
+/* channel form */
+#cr_ch input[type="text"]{
+    width: 100%;
+    height: 30px;
+}
+#cr_ch input[type="submit"]{
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 0em 1em;
+}
+/* create channel submit */
+#cr_ch input[type="submit"]:hover{
+    background: #D3223C;
+    color: black;
+}
+
+/* channels list */
+.list-group {
+    width: 100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+.list-group li{
+    list-style: none;
+    padding-bottom: 1em;
+    display: flex;
+    justify-content: center;
+}
+.list-group li a{
+    text-decoration: none;
+    color: var(--color-3);
+    font-weight: 700;
+    font-size: 19px;
+}
+.list-group li a:hover{
+    color: var(--color-1);
+}
+.list-group li span{
+    background-color: var(--color-1);
+    color: var(--main-bg-color);
+    padding: 5px 7px;
+    border-radius: 1em;
+    margin-left: 1em;
+}
+
+/* //////////////////////////////////////////// */
+/* /////////////// channel page /////////////// */
+/* //////////////////////////////////////////// */
+
+/* ///////////////////// */
+/* /// chat messages /// */
+/* ///////////////////// */
+
+.msgs-container{
+    padding-bottom: 80px;
+}
+/* chat container box */
+.chat_container{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    border: 2px solid var(--color-1);
+    border-radius: 0 3em 3em 3em;
+    background-color: var(--main-bg-color);
+    padding: 0.5em;
+    margin: 0.5em 1.5em;
+}
+.msgs-container div.right {
+    border-radius: 3em 0 3em 3em;
+    background-color: var(--color-2);
+}
+
+/* style username */
+.chat_container h5 {
+    grid-column: 1 / 3;
+    grid-row: 2/3;
+    justify-self: center;
+    margin: 0.7em 0;
+    font-weight: 900;
+    font-size: 1em;
+}
+.chat_container h5.right {
+    grid-column: -3 / -1;
+}
+
+/* style user pic */
+.chat_container img {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    border-radius: 50%;
+    justify-self: center;
+}
+.chat_container img.right {
+    grid-column: -3 / -1;
+    grid-row: 1 / 2;
+    justify-self: center;
+}
+
+/* Style messages */
+.chat_container p{
+    grid-column: 1 / 11;
+    grid-row: 1 / 2;
+    margin: 0.7em 1em;
+}
+.chat_container p.left {
+    grid-column: 3 / -1;
+}
+
+/* Style time text */
+.time {
+    grid-column: 4 / 10;
+    grid-row: 2 / 3;
+    align-self: center;
+    justify-self: center;
+    color: var(--color-1);
+}
+
+/* Style delete */
+.chat_container a{
+    grid-column: 1/3;
+    grid-row: 2/3;
+    text-decoration: none;
+    align-self: center;
+    justify-self: center;
+    background-color: var(--color-1);
+    color: var(--main-bg-color);
+    padding: 5px 7px;
+    border-radius: 1em;
+}
+.chat_container a.left{
+    grid-column: -1 / -3;
+}
+.chat_container a:hover{
+    background-color: #D3223C;
+}
+
+/* /////////////////////// */
+/* /// text input form /// */
+/* /////////////////////// */
+
+#send_txt{
+    width: 80%;
+    height: 32px;
+    margin: 1em;
+}
+#send_submit{
+    background-color: var(--color-1);
+    color: var(--main-bg-color);
+    background: var(--color-2);
+    font-weight: 700;
+    padding: 10px;
+    margin: 1em 1em 1em 0;
+    border: none;
+    border-radius: 0.5em;
+}
+#send_submit:hover{
+    background: var(--main-bg-color);
+    color: var(--color-1);
+}

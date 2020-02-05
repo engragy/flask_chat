@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-12">
+        <h1>Oops ... page not found</h1>
+        <p>the page you are tring to access does't exist, try other location</p>
+    </div>
+{% endblock %}

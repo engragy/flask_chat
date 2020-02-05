@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-8">
+      <h3 class="head-font-3">Welcom to the Chat APP website</h3>
+      <p class="insight-p">Select the Channel that suits your likings/ preferences or create new one</p>
+      <p class="insight-p">Use a Picture / Avatar for your account by clicking at your account's panel - in the top right corner</p>
+      <p class="insight-p">Sign up now and start Chatting with other people</p>
+    </div>
+    <!-- show channels list here -->
+    <div class="col-md-4">
+      <h5 class="head-font-5">Create new channel for your Interrests.</h5>
+      <form name="chform" method="POST" id="cr_ch" class="form-control-sm">
+        <!-- CSRF security token -->
+        {{ chform.hidden_tag() }}
+        <div>
+          {% if chform.chname.errors %}
+          {{ chform.chname(class="field-text is-invalid") }}
+          <div class="invalid-feedback">
+            {% for error in chform.chname.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+          {% else %}
+          {{ chform.chname(class="field-text", placeholder="New Channel Name") }}
+          {% endif %}
+        </div>
+        <div>
+          {{ chform.submit(class="btn-gray-sm") }}
+        </div>
+      </form>      
+      <br>
+      <div class="side-channels">
+        <h3 class="head-font-3">Channels</h3>
+        <ul id="ch_list" class="list-group">
+        {% if ch_list %}
+          {% for i in ch_list %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <a id="ch_item" href="{{ url_for('channel', ch_name=i) }}" data-ch="{{ i }}" class="list-group-item list-group-item-action">{{ i }}</a>
+                <span class="badge">{{ i.chat_count() }}</span>
+            </li>
+          {% endfor %}
+        {% endif %}
+        </ul>
+      </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

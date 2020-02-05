@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="col-md-6-center">
+        <form action="" method="POST" class="form-control-lg">
+            <!-- CSRF security token -->
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend>LogIn</legend>
+                <div>
+                    <!-- display input field label -->
+                    {{ form.username.label(class="field-label") }}
+                    
+                    <!-- display input field or invalid input errors -->
+                    {% if form.username.errors %}
+                    {{ form.username(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="field-text", placeholder="Your Name") }}
+                    {% endif %}
+                </div>
+                <div>
+                    {{ form.password.label(class="field-label") }}
+                    {% if form.password.errors %}
+                    {{ form.password(class="field-text is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.password.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                    {{ form.password(class="field-text") }}
+                    {% endif %}
+                </div>
+                <div class="form-check">
+                    {{ form.remember(class="form-check-input") }}
+                    {{ form.remember.label(class="form-check-label") }}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit(class="btn-blue-lg") }}
+            </div>
+            <small>
+                <a href="#">Forgot your password</a>
+            </small>
+        </form>
+        <div class="wrong-form">
+            Register if you do not have an Account ! <a href="{{ url_for('register') }}">Sign UP</a>
+        </div>    
+    </div>
+{% endblock %}
