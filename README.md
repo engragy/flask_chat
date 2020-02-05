@@ -5,11 +5,11 @@
 #
 ### consists of a couple of pages!
 > main page
-> ![main_page](https://cdn-images-1.medium.com/max/1200/1*fD3qqMWNyfJ85XST9c1H2g.png)
+> ![main_page](https://github.com/engragy/flask_chat/blob/master/home_page.jpg)
 > login/register pages
-> ![register_page](https://coderseye.com/wp-content/uploads/Flask-vs-Django-best-python-web-framework.jpg)
+> ![register_page](https://github.com/engragy/flask_chat/blob/master/signup_form.jpg)
 > chat channel page
-> ![chat_channel_page](https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Flask_logo.svg/1920px-Flask_logo.svg.png)
+> ![chat_channel_page](https://github.com/engragy/flask_chat/blob/master/chat_page.jpg)
 
 ### Features:
 * Nice looking Custom CSS style (no styling framework is used)
